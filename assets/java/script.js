@@ -1,4 +1,4 @@
-const questions = [
+const questionList = [
     {
         question: "question1",
         options: ["option 1", "option2", "option3", "option4"],
@@ -21,22 +21,24 @@ const questions = [
     },
 ];
 
+
+
+
 var timerElement = document.querySelector(".timer");
-var startButton = document.querySelector(".start-button");
+var startButton = document.querySelector("#start-button");
 
 
-var currentQuestion = "";
-var answer1 = "";
-var answer2 = "";
-var answer3 = "";
-var answer4 = "";
-var correctAnswer = "";
-var selectedAnswer = "";
 var timer;
 var timerCount = 60;
 
+
+let currentQuestionIndex = 0;
+
 //start quiz and set timer
 function startQuiz(){
+    document.getElementById("start-button").style.display = "none"
+    // document.getElementById("description").style.display = "none"
+
     timer = setInterval(function(){
         timerCount--;
         timerElement.textContent = timerCount;
@@ -47,19 +49,40 @@ function startQuiz(){
             endGame()
         }
     }, 1000);
-    
+    showQuestion(currentQuestionIndex);
 }
 
 //check if answer is correct
 //Show correct or wrong
 //Deduct time from timer
 function checkAnswer(){
-
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questionList.length){
+        showQuestion(currentQuestionIndex);
+    } else {
+        winGame();
+    }
 }
 
 //load next question
-function nextQuestion(){
+function showQuestion(currentQuestionIndex){
+    var questionElement = document.getElementById("questions");
+    var quizContainer = document.getElementById("quiz-container");
 
+    quizContainer.innerHTML = '';
+
+    questionElement.textContent = questionList[currentQuestionIndex].question;
+    questionElement.style.display = "block";
+
+    var options = questionList[currentQuestionIndex].options
+    for (var i = 0; i <options.length; i++){
+        var optionButton = document.createElement("button");
+        optionButton.textContent= options[i]
+        optionButton.addEventListener("click", function() {
+            checkAnswer(options[i]);
+        })
+        quizContainer.appendChild(optionButton);
+    }
 }
 
 //timer runs out, show game over
