@@ -53,7 +53,12 @@ input{
     margin:10px 0;  
 }
 
+#high-scores-h1{
+    text-align: center;
+}
+
 #high-scores-list {
+    text-align: center;
     list-style: none;
     padding: 0;
 }
@@ -61,4 +66,12 @@ input{
 #high-scores-list li{
     margin: 0;
     padding: 5px 0;
+}
+
+#return-button {
+    margin-right: 10px;
+}
+
+#clear-button {
+    margin-left: 10px;
 }
