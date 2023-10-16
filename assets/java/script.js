@@ -1,52 +1,64 @@
 const questionList = [
     {
-        question: "question1",
-        options: ["option 1", "option2", "option3", "option4"],
-        answer: "option 1"
+        question: "What does the typeof operator in JavaScript return when used with a string?",
+        options: ["string", "number", "boolean", "function"],
+        answer: "string"
     },
     {
-        question: "question2",
-        options: ["option 1", "option2", "option3", "option4"],
-        answer: "option 1"
+        question: " In JavaScript, which keyword is used to declare a variable?",
+        options: ["define", "alloc", "let", "declare"],
+        answer: "let"
     },
     {
-        question: "question3",
-        options: ["option 1", "option2", "option3", "option4"],
-        answer: "option 1"
+        question: "How do you write a comment in JavaScript?",
+        options: ["/* This is a comment */", "// This is a comment", "<!-- This is a comment -->", "' This is a comment '"],
+        answer: "// This is a comment"
     },
     {
-        question: "question4",
-        options: ["option 1", "option2", "option3", "option4"],
-        answer: "option 1"
+        question: " Which function is used to parse a string and return it as an integer in JavaScript?",
+        options: ["parseFloat()", "toInteger()", "parseInteger()", "parseInt()"],
+        answer: "parseInt()"
     },
 ];
 
 
 
-
+const timerDisplay = document.querySelector(".timer-display")
 const timerElement = document.querySelector(".timer");
-const startButton = document.querySelector("#start-button");
+var startButton = document.querySelector("#start-button");
 const quizContainer = document.getElementById("quiz-container");
 const questionElement = document.getElementById("questions");
+var scoreBtn = document.querySelector("#high-score");
 
 var timer;
-var timerCount = 60;
-
+let timerPaused = false
+let timerCount = 60;
 
 let currentQuestionIndex = 0;
 
 //start quiz and set timer then hide it
 function startQuiz(){
+    startTimer()
     startButton.style.display = "none"
 
     timer = setInterval(function(){
-        timerCount--;
-        timerElement.textContent = timerCount;
-        if (timerCount <= 0){
-            endGame()
+        if (!timerPaused) {
+            timerCount--;
+            timerElement.textContent = timerCount;
+            if (timerCount <= 0){
+                endGame()
+            }
         }
     }, 1000);
     showQuestion(currentQuestionIndex);
+}
+
+function pauseTimer(){
+    timerPaused = true
+}
+
+function startTimer(){
+    timerPaused = false
 }
 
 //check if answer is correct
@@ -60,7 +72,7 @@ function checkAnswer(selectedOpt){
     if (selectedOpt === questionList[currentQuestionIndex].answer){
         answerEl.textContent = ("You're Correct!!")
     } else {
-        answerEl.textContent = ("Incorrect, Good luck with the next question!" )
+        answerEl.textContent = ("Sorry, that's Incorrect." )
         timerCount -=10
     }
 
@@ -75,7 +87,7 @@ function checkAnswer(selectedOpt){
             winGame()
         }
 
-    }, 2000);
+    }, 1000);
 }
 //load next question
 function showQuestion(currentQuestionIndex){
@@ -121,9 +133,11 @@ function endGame(){
 
 //Show quiz complete, display score, and get input of initials
 function winGame(){
-    timerElement.style.display = "none"
+    pauseTimer()
+    timerDisplay.style.display = "none"
     quizContainer.innerHTML = ''
     var score = timerCount
+    
 
     var winMessage = document.createElement("p")
     winMessage.textContent = "Your score was " + score
@@ -140,24 +154,81 @@ function winGame(){
     submitBtn.style.display = "Block"
     submitBtn.addEventListener("click", function(event) {
         event.preventDefault()
+        
+        var highScores = JSON.parse(localStorage.getItem("highScores")) || []
+        
         var highScore = {
             name: nameInput.value,
             score: score
         }
-        localStorage.setItem("highScore", JSON.stringify(highScore))
+        highScores.push(highScore)
+        localStorage.setItem("highScores", JSON.stringify(highScores))
+
+        displayHighScores()
 
     })
     quizContainer.appendChild(submitBtn)
 }
 
-//save score to local storage
-function saveScore(){
+//sort and show scores of local storage
+function displayHighScores (){
+
+    quizContainer.innerHTML = ''
+    timerDisplay.style.display = "none"
+    scoreBtn.style.display = "none"
+
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || []
+
+    highScores.sort((a,b) => b.score - a.score)
+
+    const highScoresList = document.createElement("ul")
+    highScoresList.id = "high-scores-list"
+
+    highScores.forEach((score, index) => {
+        const listItem = document.createElement("li")
+        listItem.textContent = `${index + 1}. ${score.name}: ${score.score}`
+        highScoresList.appendChild(listItem)
+    })
+
     
+    quizContainer.appendChild(highScoresList)
+
+    var returnBtn = document.createElement("button")
+
+    
+    returnBtn.textContent = "Return"
+    returnBtn.style.display = "block"
+    quizContainer.appendChild(returnBtn)
+
+    returnBtn.addEventListener("click", function(){
+        quizContainer.innerHTML = ''
+        timerDisplay.style.display = "block"
+        scoreBtn.style.display = "block"
+        startButton.style.display = "block"
+        // returnBtn.style.display = "none"
+        timerCount = 60
+        timerElement.textContent = timerCount
+        currentQuestionIndex = 0
+        pauseTimer()
+
+        var title = document.createElement("h1")
+        title.textContent = "Coding Quiz"
+        title.style.display = "Block"
+        quizContainer.appendChild(title)
+
+        var description = document.createElement("p")
+        description.innerHTML = "You will have 60 seconds to answer 4 questions. <br> Each time you get an answer wrong, you will be penalized by 10seconds! <br> Good luck!"
+        description.style.display = "block"
+        quizContainer.appendChild(description)
+
+        var restartButton = document.createElement("button")
+        restartButton.textContent = "Start Quiz"
+        restartButton.style.display = "block"
+        quizContainer.appendChild(restartButton)
+        restartButton.addEventListener("click", startQuiz)
+    })
 }
 
-//show scores of local storage
-function showScores(){
 
-}
-
-startButton.addEventListener("click", startQuiz);
+scoreBtn.addEventListener("click", displayHighScores)
+startButton.addEventListener("click", startQuiz)
