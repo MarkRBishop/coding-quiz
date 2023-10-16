@@ -194,30 +194,37 @@ function displayHighScores (){
     quizContainer.appendChild(returnBtn)
 
     returnBtn.addEventListener("click", function(){
-        quizContainer.innerHTML = ''
-        timerDisplay.style.display = "block"
-        scoreBtn.style.display = "block"
-        startButton.style.display = "block"
-        timerCount = 60
-        timerElement.textContent = timerCount
-        currentQuestionIndex = 0
+        location.reload();
+        //Hillariously.... I have over exerted myself, I didn't even realize the above was an option until I started trying to use the CSS
+        //Once I started trying to write my CSS, I realized if I coded the quiz buttons to do what I wanted, I couldn't get the start button to center.
+        //Thats when I realized that with this application, there is no issue refreshing the page, it'll run like normal. So, I researched how to do that, and was instantly shocked by it's simplicity.
+        //So this is not failed code, more redundant, but I did spend a deal of time trying to get it to work properly and hate to delete it. It's only problem is that I couldn't figure out how to make the CSS work the way I wanted.
+        //I encourage anyone that comes across this code to comment out the above line and uncomment the code below and show me how I could get the dynamically created start page to match the original start page.
+
+        // quizContainer.innerHTML = ''
+        // timerDisplay.style.display = "block"
+        // scoreBtn.style.display = "block"
+        // startButton.style.display = "block"
+        // timerCount = 60
+        // timerElement.textContent = timerCount
+        // currentQuestionIndex = 0
         
 
-        var title = document.createElement("h1")
-        title.textContent = "Coding Quiz"
-        title.style.display = "Block"
-        quizContainer.appendChild(title)
+        // var title = document.createElement("h1")
+        // title.textContent = "Coding Quiz"
+        // title.style.display = "Block"
+        // quizContainer.appendChild(title)
 
-        var description = document.createElement("p")
-        description.innerHTML = "You will have 60 seconds to answer 4 questions. <br> Each time you get an answer wrong, you will be penalized by 10seconds! <br> Good luck!"
-        description.style.display = "block"
-        quizContainer.appendChild(description)
+        // var description = document.createElement("p")
+        // description.innerHTML = "You will have 60 seconds to answer 4 questions. <br> Each time you get an answer wrong, you will be penalized by 10seconds! <br> Good luck!"
+        // description.style.display = "block"
+        // quizContainer.appendChild(description)
 
-        var restartButton = document.createElement("button")
-        restartButton.textContent = "Start Quiz"
-        restartButton.style.display = "block"
-        quizContainer.appendChild(restartButton)
-        restartButton.addEventListener("click", startQuiz)
+        // var restartButton = document.createElement("button")
+        // restartButton.textContent = "Start Quiz"
+        // restartButton.style.display = "block"
+        // quizContainer.appendChild(restartButton)
+        // restartButton.addEventListener("click", startQuiz)
 
     })
 }
