@@ -1,3 +1,4 @@
+/* Places the View high scores button in the top left, gives it color and changes the mouse over */
 #high-score {
     position: absolute;
     top: 10px;
@@ -8,6 +9,7 @@
     cursor: pointer;
 }
 
+/* Sets the timer in the top right */
 .timer-display {
     position: absolute;
     top: 10px;
@@ -15,6 +17,7 @@
     text-align: right;
 }
 
+/* positions the container centered, that the cards will be displayed in */
 #quiz-container {
     position: absolute;
     top: 50%;
@@ -23,6 +26,7 @@
     text-align: left;
 }
 
+/* These both center the elements that will be displayed */
 #questions {
     text-align: center;
 }
@@ -31,7 +35,7 @@
     text-align: center;
 }
 
-
+/* colors the buttons and gives them a bit of space between them, rounds them out to make them look better */
 #quiz-container button {
     background-color: purple;
     color: white;
@@ -41,6 +45,7 @@
     border-radius: 5px;
 }
 
+/* positions the button a little better */
 #start-button {
     display: block;
     margin: 20px auto;
@@ -50,6 +55,7 @@
     text-align: center;
 }
 
+/* gives the input a little color and positions it a bit better */
 input{
     background-color: plum;
     padding: 5px;
@@ -57,20 +63,24 @@ input{
     margin:10px 0;  
 }
 
+/* helps the position between the input and the submit button */
 #submit-button{
     margin-left: 5px;
 }
 
+/* Centers the highscore h1 */
 #high-scores-h1{
     text-align: center;
 }
 
+/* positions the list better */
 #high-scores-list {
     text-align: center;
     list-style: none;
     padding: 0;
 }
 
+/* gives the list elements some asthetic attributes and positions it in a more pleasing way */
 #high-scores-list li{
     background-color: plum;
     width: 100%;
@@ -78,8 +88,17 @@ input{
     padding: 5px 5px;
     text-align: left;
     font-weight: bold;
+    border-radius: 5px;
 }
 
+/* Centers the retry button, instead of being skewed to the left */
+#retry-button{
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* both of these get the buttons in line and positions them a bit more centered in the container */
 #return-button {
     margin-right: 10px;
     margin-left: 12px;
