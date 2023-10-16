@@ -30,7 +30,7 @@ const quizContainer = document.getElementById("quiz-container");
 const questionElement = document.getElementById("questions");
 var scoreBtn = document.querySelector("#high-score");
 
-var timer;
+let timer;
 let timerPaused = false
 let timerCount = 60;
 
@@ -38,7 +38,6 @@ let currentQuestionIndex = 0;
 
 //start quiz and set timer then hide it
 function startQuiz(){
-    startTimer()
     startButton.style.display = "none"
 
     timer = setInterval(function(){
@@ -51,14 +50,6 @@ function startQuiz(){
         }
     }, 1000);
     showQuestion(currentQuestionIndex);
-}
-
-function pauseTimer(){
-    timerPaused = true
-}
-
-function startTimer(){
-    timerPaused = false
 }
 
 //check if answer is correct
@@ -119,6 +110,7 @@ function showQuestion(currentQuestionIndex){
 //timer runs out, show game over
 function endGame(){
     quizContainer.innerHTML = ''
+    clearInterval(timer)
 
     var endGameEl = document.createElement ("p")
     endGameEl.textContent = "Good luck next time"
@@ -133,14 +125,14 @@ function endGame(){
 
 //Show quiz complete, display score, and get input of initials
 function winGame(){
-    pauseTimer()
+    clearInterval(timer)
     timerDisplay.style.display = "none"
     quizContainer.innerHTML = ''
     var score = timerCount
     
 
     var winMessage = document.createElement("p")
-    winMessage.textContent = "Your score was " + score
+    winMessage.textContent = "Your score was " + score +"!"
     winMessage.style.display = "block"
     quizContainer.appendChild(winMessage)
 
@@ -176,6 +168,7 @@ function displayHighScores (){
     quizContainer.innerHTML = ''
     timerDisplay.style.display = "none"
     scoreBtn.style.display = "none"
+    clearInterval(timer)
 
     const highScores = JSON.parse(localStorage.getItem("highScores")) || []
 
@@ -205,11 +198,10 @@ function displayHighScores (){
         timerDisplay.style.display = "block"
         scoreBtn.style.display = "block"
         startButton.style.display = "block"
-        // returnBtn.style.display = "none"
         timerCount = 60
         timerElement.textContent = timerCount
         currentQuestionIndex = 0
-        pauseTimer()
+        
 
         var title = document.createElement("h1")
         title.textContent = "Coding Quiz"
@@ -226,6 +218,7 @@ function displayHighScores (){
         restartButton.style.display = "block"
         quizContainer.appendChild(restartButton)
         restartButton.addEventListener("click", startQuiz)
+
     })
 }
 

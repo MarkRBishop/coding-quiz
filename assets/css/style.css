@@ -1,0 +1,64 @@
+#high-score {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: none;
+    background: none;
+    color: purple;
+    cursor: pointer;
+}
+
+.timer-display {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+}
+
+#quiz-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+}
+
+#questions {
+    text-align: center;
+}
+
+#description {
+    text-align: center;
+}
+
+
+#quiz-container button {
+    background-color: purple;
+    color: white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+#start-button {
+    display: block;
+    margin: 20px auto;
+}
+
+input{
+    background-color: plum;
+    padding: 5px;
+    border-radius: 5px;
+    margin:10px 0;  
+}
+
+#high-scores-list {
+    list-style: none;
+    padding: 0;
+}
+
+#high-scores-list li{
+    margin: 0;
+    padding: 5px 0;
+}
