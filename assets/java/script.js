@@ -128,6 +128,7 @@ function winGame(){
     var score = timerCount
 
     var winMessage = document.createElement("p")
+    winMessage.id = "win-message"
     winMessage.textContent = "Your score was " + score +"!"
     winMessage.style.display = "block"
     quizContainer.appendChild(winMessage)
@@ -138,8 +139,9 @@ function winGame(){
     quizContainer.appendChild(nameInput)
 
     var submitBtn = document.createElement("button")
+    submitBtn.id = "submit-button"
     submitBtn.textContent = "Submit"
-    submitBtn.style.display = "Block"
+    submitBtn.style.display = "inline-Block"
     submitBtn.addEventListener("click", function(event) {
         event.preventDefault()
         

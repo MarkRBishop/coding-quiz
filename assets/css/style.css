@@ -46,11 +46,19 @@
     margin: 20px auto;
 }
 
+#win-message {
+    text-align: center;
+}
+
 input{
     background-color: plum;
     padding: 5px;
     border-radius: 5px;
     margin:10px 0;  
+}
+
+#submit-button{
+    margin-left: 5px;
 }
 
 #high-scores-h1{
@@ -64,12 +72,17 @@ input{
 }
 
 #high-scores-list li{
-    margin: 0;
-    padding: 5px 0;
+    background-color: plum;
+    width: 100%;
+    margin: 2px;
+    padding: 5px 5px;
+    text-align: left;
+    font-weight: bold;
 }
 
 #return-button {
     margin-right: 10px;
+    margin-left: 12px;
 }
 
 #clear-button {
